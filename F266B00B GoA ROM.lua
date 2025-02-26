@@ -1970,6 +1970,11 @@ if Place == 0x0204 and Events(Null,0x02,0x03) and ReadByte(Save+0x36B4) > 0 then
 	WriteShort(Save+0x3EEC,3) --Mushroom XII
 	WriteShort(Save+0x3EF0,40)
 end
+if ReadByte(Save+0x3643) < 3 then -- Check if the user has less than 3 membership cards
+    local previousRoom = ReadByte(Save+0x1E9B) -- Get the room they came from
+    WriteShort(BAR(ARD,0x0A,GoAOffset+0x130),previousRoom,OnPC) -- Teleport them back to the previous room
+end
+
 end
 
 function PR()
