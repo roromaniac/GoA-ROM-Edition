@@ -1970,22 +1970,11 @@ if Place == 0x0204 and Events(Null,0x02,0x03) and ReadByte(Save+0x36B4) > 0 then
 	WriteShort(Save+0x3EEC,3) --Mushroom XII
 	WriteShort(Save+0x3EF0,40)
 end
---CoR Blocking w/ Dummy 12
--- ALL OF THESE VALUES ARE NOT RIGHT. JUST COPIED AND PASTED FROM HOW UNKNOWN DISK IS HANDLED
-if ReadByte(Save+0x365F) > 0 then
-	BitOr(Save+0x1CF1,0x02)
-	if ReadShort(Save+0x062E) == 0x08 then
-		WriteShort(Save+0x062E,0x0E) --Ansem's Study MAP
-		WriteShort(Save+0x20D4,0) --Heartless Manufactory Unblock
-	elseif ReadShort(Save+0x062E) == 0x0D then
-		WriteShort(Save+0x062E,0x10) --Ansem's Study MAP
-		WriteShort(Save+0x20D4,0) --Heartless Manufactory Unblock
-	elseif ReadShort(Save+0x062E) == 0x0F then
-		WriteShort(Save+0x062E,0x11) --Ansem's Study MAP
-		WriteShort(Save+0x20D4,0) --Heartless Manufactory Unblock
-	end
-elseif ReadByte(Save+0x1CF1)&0x02 == 0x02 then --Unknown Disk taken by Moogle
-	WriteByte(Save+0x365F,1) --Add it back to inventory
+-- CoR Blocking w/ Dummy 12
+if ReadByte(Save+0x368C) == 0x00 then 
+	WriteShort(Now+0x01, 0x0634) -- Warp player back to Postern
+elseif ReadByte(Save+0x1CF1)&0x02 == 0x02 then --Mining Permit taken by Moogle
+	WriteByte(Save+0x368C,1) --Add it back to inventory 
 end
 
 end
