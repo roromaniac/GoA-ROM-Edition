@@ -1972,7 +1972,7 @@ if Place == 0x0204 and Events(Null,0x02,0x03) and ReadByte(Save+0x36B4) > 0 then
 end
 -- CoR Blocking w/ Dummy 12
 if ReadByte(Save+0x365C) == 0x00 then 
-	Warp(0x04,0x06,0x03) -- Warp player back to Postern
+	WriteByte(Sav+0x0634,1)
 elseif ReadByte(Save+0x1CF1)&0x02 == 0x02 then --Mining Permit taken by Moogle
 	WriteByte(Save+0x365C,1) --Add it back to inventory 
 end
