@@ -1973,6 +1973,8 @@ end
 -- CoR Blocking w/ Dummy 12
 if ReadByte(Save+0x365C) == 0x00 then 
 	WriteByte(Save+0x0634,1)
+elseif ReadByte(Save+0x365C) == 0x01 then 
+	WriteByte(Save+0x0634,0)
 elseif ReadByte(Save+0x1CF1)&0x02 == 0x02 then --Mining Permit taken by Moogle
 	WriteByte(Save+0x365C,1) --Add it back to inventory 
 end
