@@ -1972,7 +1972,7 @@ if Place == 0x0204 and Events(Null,0x02,0x03) and ReadByte(Save+0x36B4) > 0 then
 end
 -- CoR Blocking w/ Dummy 12
 -- If mob fight isn't beaten, always ensure 
-if World == 0x04 and Room == 0x06 and Event == 0x15 then
+if World == 0x04 and Room == 0x06 and Evt == 0x15 then
 	WriteShort(Save+0x3545,0x12)
 	WriteShort(Save+0x3546,0x12)
 end
