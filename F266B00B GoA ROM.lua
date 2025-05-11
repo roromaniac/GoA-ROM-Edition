@@ -302,6 +302,8 @@ if true then --Define current values for common addresses
 	Btl    = ReadShort(Now+0x06)
 	Evt    = ReadShort(Now+0x08)
 	PrevPlace = ReadShort(Now+0x30)
+	origParty1 = ReadByte(Save + 0x3545)
+  	origParty2 = ReadByte(Save + 0x3546)
 	if not OnPC then
 		ARD = ReadInt(ARDPointer)
 	else
@@ -1973,8 +1975,11 @@ end
 -- CoR Blocking w/ Dummy 12
 -- If mob fight isn't beaten, always ensure 
 if World == 0x04 and Room == 0x06 and Evt == 0x15 then
-	WriteShort(Save+0x3545,0x12)
-	WriteShort(Save+0x3546,0x12)
+    WriteByte(Save + 0x3545, 0x12)
+    WriteByte(Save + 0x3546, 0x12)
+else
+    WriteByte(Save + 0x3545, origParty1)
+    WriteByte(Save + 0x3546, origParty2)
 end
 if ReadByte(Save+0x365C) == 0x00 then 
 	WriteByte(Save+0x0634,1)
