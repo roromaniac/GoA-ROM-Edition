@@ -10,6 +10,7 @@ GameVersion = 0
 print('GoA v1.54.4')
 GoAOffset = 0x7C
 SeedCleared = false
+savedParty1, savedParty2 = nil, nil
 end
 
 function GetVersion() --Define anchor addresses
@@ -1974,12 +1975,21 @@ if Place == 0x0204 and Events(Null,0x02,0x03) and ReadByte(Save+0x36B4) > 0 then
 end
 -- CoR Blocking w/ Dummy 12
 -- If mob fight isn't beaten, always ensure 
-if World == 0x04 and Room == 0x06 and Evt == 0x15 then
-    WriteByte(Save + 0x3545, 0x12)
-    WriteByte(Save + 0x3546, 0x12)
+if World==0x04 and Room==0x06 and Evt==0x15 then
+    if not savedParty1 then
+      savedParty1 = ReadByte(Save + 0x3545)
+      savedParty2 = ReadByte(Save + 0x3546)
+    end
+    WriteByte(Save+0x3545,0x12)
+    WriteByte(Save+0x3546,0x12)
+
 else
-    WriteByte(Save + 0x3545, origParty1)
-    WriteByte(Save + 0x3546, origParty2)
+    -- when you leave the fight, restore from the *original* snapshot
+    if savedParty1 then
+      WriteByte(Save+0x3545, savedParty1)
+      WriteByte(Save+0x3546, savedParty2)
+      savedParty1, savedParty2 = nil, nil
+    end
 end
 if ReadByte(Save+0x365C) == 0x00 then 
 	WriteByte(Save+0x0634,1)
