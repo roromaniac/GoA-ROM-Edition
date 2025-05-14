@@ -10,7 +10,7 @@ GameVersion = 0
 print('GoA v1.54.4')
 GoAOffset = 0x7C
 SeedCleared = false
-savedParty1, savedParty2 = nil, nil
+savedParty1, savedParty2 = nil, nil -- create the savedParty
 end
 
 function GetVersion() --Define anchor addresses
@@ -1974,7 +1974,7 @@ if Place == 0x0204 and Events(Null,0x02,0x03) and ReadByte(Save+0x36B4) > 0 then
 	WriteShort(Save+0x3EF0,40)
 end
 -- CoR Blocking w/ Dummy 12
--- If mob fight isn't beaten, always ensure 
+-- If mob fight isn't beaten, always ensure no party members 
 if World==0x04 and Room==0x06 and Evt==0x15 then
     if not savedParty1 then
       savedParty1 = ReadByte(Save + 0x3545)
